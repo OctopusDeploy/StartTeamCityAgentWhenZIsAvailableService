@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "Topshelf": "4.0.1",
+    "Serilog": "2.3.0",
+    "Serilog.Sinks.ColoredConsole": "2.0.0",
+    "Serilog.Sinks.File": "3.1.0"
+  },
+  "frameworks": {
+    "net461": {
+      "frameworkAssemblies": {
+        "System.ServiceProcess": "*"
+      }
+    }
+  }
+}
