@@ -63,6 +63,7 @@ namespace StartTeamCityAgentWhenZIsAvailableService
         {
             Log.Information("Checking for Z drive existance");
             var sw = new Stopwatch();
+            sw.Start();
             while (sw.Elapsed < TimeSpan.FromMinutes(2) && !Directory.Exists(@"Z:\"))
             {
                 if(_cancel)
