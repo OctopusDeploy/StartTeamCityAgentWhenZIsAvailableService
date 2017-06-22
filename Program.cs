@@ -72,8 +72,19 @@ namespace StartTeamCityAgentWhenZIsAvailableService
                 Log.Verbose("Z Does not exist");
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
-            if (Directory.Exists(@"Z:\"))
+            if (Directory.Exists(@"Z:\")) {
                 Log.Information("Z Exists");
+            }
+            else {
+                var fallbackDirectory = @"C:";
+                if (Directory.Exists(@"D:\")) 
+                    fallbackDirectory = "D:";
+                Log.Information("Z drive does not exist. Falling back to " + fallbackDirectory);
+                var teamcityProperties = File.ReadAllText(@"c:\buildAgent\conf\buildAgent.properties");
+                teamcityProperties = teamcityProperties.Replace("tempDir=z:/buildAgent/tempDir", "tempDir=" + fallbackDirectory + "/buildAgent/tempDir");
+                teamcityProperties = teamcityProperties.Replace("workDir=z:/buildAgent/workDir", "workDir=" + fallbackDirectory + "/buildAgent/workDir");
+                File.WriteAllText(@"c:\buildAgent\conf\buildAgent.properties", teamcityProperties);
+            }
 
             RestartTcService();
             Log.Information("Done");
