@@ -24,10 +24,10 @@ function Publish-ToGitHub($versionNumber, $commitId, $preRelease, $artifact, $gi
        Body = ($data | ConvertTo-Json -Compress)
     }
 
-    $result = Invoke-RestMethod @releaseParams 
+    $result = Invoke-RestMethod @releaseParams
     $uploadUri = $result | Select-Object -ExpandProperty upload_url
     $uploadUri = $uploadUri -creplace '\{\?name,label\}'
-    $uploadUri = $uploadUri + ("?name=$artifact" -replace '.\', '')
+    $uploadUri = $uploadUri + ("?name=$artifact".Replace('.\', ''))
 
     $params = @{
       Uri = $uploadUri;
