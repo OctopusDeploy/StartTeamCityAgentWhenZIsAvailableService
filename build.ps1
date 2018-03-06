@@ -64,7 +64,8 @@ if($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-output "### Enabling TLS 1.2 support"
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12, [System.Net.SecurityProtocolType]::Tls11, [System.Net.SecurityProtocolType]::Tls
 
-Compress-Archive -Path .\Merged\StartTeamCityAgentWhenZIsAvailableService.exe -DestinationPath ".\StartTeamCityAgentWhenZIsAvailableService.$buildVersion.zip"
+$paths = @(".\Merged\StartTeamCityAgentWhenZIsAvailableService.exe", ".\StartTeamCityAgentWhenZIsAvailable.ps1")
+Compress-Archive -Path $paths -DestinationPath ".\StartTeamCityAgentWhenZIsAvailableService.$buildVersion.zip"
 
 $commitId = git rev-parse HEAD
 Publish-ToGitHub -versionNumber $buildVersion `
